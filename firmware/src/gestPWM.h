@@ -29,7 +29,7 @@ typedef struct {
     int8_t AngleSetting; // consigne angle  -90 à +90
 } S_pwmSettings;
 
-extern S_pwmSettings PWMData; 
+
 
 void GPWM_Initialize(S_pwmSettings *pData);
 

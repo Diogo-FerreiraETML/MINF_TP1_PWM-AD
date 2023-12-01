@@ -148,14 +148,18 @@ void APP_Tasks ( void )
             if (appInitialized)
             {
             
-                appData.state = APP_STATE_SERVICE_TASKS;
+                appData.state = APP_STATE_WAIT;
             }
             break;
         }
-
-        case APP_STATE_SERVICE_TASKS:
+        case APP_STATE_WAIT:
         {
         
+            break;
+        }
+        case APP_STATE_SERVICE_TASKS:
+        {
+            appData.state = APP_STATE_WAIT;
             break;
         }
 
@@ -171,7 +175,10 @@ void APP_Tasks ( void )
     }
 }
 
- 
+void APP_UpdateState (APP_STATES NewState)
+{
+    
+}
 
 /*******************************************************************************
  End of File

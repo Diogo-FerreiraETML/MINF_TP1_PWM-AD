@@ -15,7 +15,7 @@
 
 #include "GestPWM.h"
 
-S_pwmSettings PWMData;      // pour les settings
+
 
 void GPWM_Initialize(S_pwmSettings *pData)
 {
