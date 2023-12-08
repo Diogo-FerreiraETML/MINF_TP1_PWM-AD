@@ -21,10 +21,18 @@ void GPWM_Initialize(S_pwmSettings *pData)
 {
    // Init les data 
     
-   // Init état du pont en H
-    
-   // lance les timers et OC
-    
+    // Init état du pont en H
+    BSP_EnableHbrige();
+    // Lancement des timers et OC
+    // Start des OCs
+    DRV_OC0_Start();
+    DRV_OC1_Start();
+
+    // Start des timers
+    DRV_TMR0_Start();
+    DRV_TMR1_Start();
+    DRV_TMR2_Start();
+    DRV_TMR3_Start();
 }
 
 // Obtention vitesse et angle (mise a jour des 4 champs de la structure)
