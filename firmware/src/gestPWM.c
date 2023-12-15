@@ -14,6 +14,11 @@
 
 
 #include "GestPWM.h"
+#include "Mc32DriverLcd.h"
+#include "Mc32DriverAdc.h"
+#include "bsp.h"
+#include "driver/oc/drv_oc_static.h"
+#include "driver/tmr/drv_tmr_static.h"
 
 S_pwmSettings PWMData;      // pour les settings
 
@@ -121,13 +126,66 @@ void GPWM_DispSettings(S_pwmSettings *pData)
 // Execution PWM et gestion moteur à partir des info dans structure
 void GPWM_ExecPWM(S_pwmSettings *pData)
 {
+    //Variables pour rapports cycliques des OCs (initialisées à 0)
+    uint32_t OC2_DutyCycle = 0;
+    uint32_t OC3_DutyCycle = 0;
     
+    //Gestion de la direction du pont en H en fonction du signe de la vitesse
+    //Dans la structure S_pwmSettings, SpeedSetting correspond au signe de la
+    //  vitesse
+    
+    if(pData -> SpeedSetting > 0)
+    {
+        //Sens anti-horaire
+        AIN1_HBRIDGE_W = 0;
+        AIN2_HBRIDGE_W = 1;
+        STBY_HBRIDGE_W = 1;
+    }
+    else if (pData -> SpeedSetting < 0)
+    {
+        //Sens horaire
+        AIN1_HBRIDGE_W = 1;
+        AIN2_HBRIDGE_W = 0;
+        STBY_HBRIDGE_W = 1;
+    }
+    else
+    {
+        //STOP
+        AIN1_HBRIDGE_W = 0;
+        AIN2_HBRIDGE_W = 0;
+        STBY_HBRIDGE_W = 0;    
+    }
+    
+    //Calcul de la vitesse absSpeed en % pour obtention du rapport cyclique
+    OC2_DutyCycle = (float)((2000 / 100) * pData -> absSpeed) -0.5; //-0.5 = valeur minimum du Servo, nbre de tics
+    //2000 correspond à la valeur utilisée dans le MHC + 1
+    DRV_OC0_PulseWidth16BitSet(OC2_DutyCycle);
+    
+    //Calcul de l'angle absAngle en nombre d'impulsions
+    OC3_DutyCycle = (float)((8750 / 180) * pData -> absAngle) + 2999.5; //2999.5 = valeur max du Servo, nbre de tics
+    //8750 correspond à la valeur utilisée dans le MHC + 1
+    //180 correspond à la plage de l'angle
+    DRV_OC1_PulseWidth16BitSet(OC3_DutyCycle);
 }
 
 // Execution PWM software
 void GPWM_ExecPWMSoft(S_pwmSettings *pData)
 {
+    //Fonction premettant de génlrer par comptage un PWM de 100 cycles de 35us
     
+    //Variable de comptage (statique car on veut conserver la valeur)
+    static uint8_t CounterPWM = 0;
+    
+    CounterPWM = (CounterPWM + 1) % 100; //Modulo 100 pour pourcentage
+   
+    if ( CounterPWM < pData->absSpeed)
+    {
+        BSP_LEDOn(BSP_LED_2);
+    }
+    else
+    {
+        BSP_LEDOff(BSP_LED_2);
+    }
 }
 
 
