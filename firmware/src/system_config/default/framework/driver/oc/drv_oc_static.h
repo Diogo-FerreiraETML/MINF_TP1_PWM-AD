@@ -66,6 +66,7 @@ void DRV_OC0_Disable(void);
 void DRV_OC0_Start(void);
 void DRV_OC0_Stop(void);
 bool DRV_OC0_FaultHasOccurred(void);
+void DRV_OC0_PulseWidthSet(uint32_t pulseWidth);
 // *****************************************************************************
 // *****************************************************************************
 // Section: Interface Headers for Instance 1 for the static driver
@@ -77,6 +78,7 @@ void DRV_OC1_Disable(void);
 void DRV_OC1_Start(void);
 void DRV_OC1_Stop(void);
 bool DRV_OC1_FaultHasOccurred(void);
+void DRV_OC1_PulseWidthSet(uint32_t pulseWidth);
 #endif // #ifndef _DRV_OC_STATIC_H
 
 /*******************************************************************************

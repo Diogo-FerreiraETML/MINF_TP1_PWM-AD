@@ -333,15 +333,15 @@ void DRV_TMR1_Initialize(void)
     /* Select clock source */
     PLIB_TMR_ClockSourceSelect ( TMR_ID_2, TMR_CLOCK_SOURCE_PERIPHERAL_CLOCK );
     /* Select prescalar value */
-    PLIB_TMR_PrescaleSelect(TMR_ID_2, TMR_PRESCALE_VALUE_8);
+    PLIB_TMR_PrescaleSelect(TMR_ID_2, TMR_PRESCALE_VALUE_1);
     /* Enable 16 bit mode */
     PLIB_TMR_Mode16BitEnable(TMR_ID_2);
     /* Clear counter */ 
     PLIB_TMR_Counter16BitClear(TMR_ID_2);
     /*Set period */ 
-    PLIB_TMR_Period16BitSet(TMR_ID_2, 249);
+    PLIB_TMR_Period16BitSet(TMR_ID_2, 1999);
     /* Setup Interrupt */   
-    PLIB_INT_VectorPrioritySet(INT_ID_0, INT_VECTOR_T2, INT_PRIORITY_LEVEL1);
+    PLIB_INT_VectorPrioritySet(INT_ID_0, INT_VECTOR_T2, INT_DISABLE_INTERRUPT);
     PLIB_INT_VectorSubPrioritySet(INT_ID_0, INT_VECTOR_T2, INT_SUBPRIORITY_LEVEL0);          
 }
 
@@ -697,13 +697,13 @@ void DRV_TMR3_Initialize(void)
     /* Select clock source */
     PLIB_TMR_ClockSourceSelect ( TMR_ID_4, TMR_CLOCK_SOURCE_PERIPHERAL_CLOCK );
     /* Select prescalar value */
-    PLIB_TMR_PrescaleSelect(TMR_ID_4, TMR_PRESCALE_VALUE_256);
+    PLIB_TMR_PrescaleSelect(TMR_ID_4, TMR_PRESCALE_VALUE_8);
     /* Enable 16 bit mode */
     PLIB_TMR_Mode16BitEnable(TMR_ID_4);
     /* Clear counter */ 
     PLIB_TMR_Counter16BitClear(TMR_ID_4);
     /*Set period */ 
-    PLIB_TMR_Period16BitSet(TMR_ID_4, 0);
+    PLIB_TMR_Period16BitSet(TMR_ID_4, 349);
     /* Setup Interrupt */   
     PLIB_INT_VectorPrioritySet(INT_ID_0, INT_VECTOR_T4, INT_PRIORITY_LEVEL4);
     PLIB_INT_VectorSubPrioritySet(INT_ID_0, INT_VECTOR_T4, INT_SUBPRIORITY_LEVEL0);          

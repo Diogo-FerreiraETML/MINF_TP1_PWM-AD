@@ -85,6 +85,14 @@ APP_DATA appData;
 // *****************************************************************************
 // *****************************************************************************
 
+void CallbackTimer1(APP_STATES NewState)
+{
+    static int waitInit = 0;
+    if(waitInit == 150)
+        appData.state = NewState;
+    else
+        waitInit++;
+}
 /* TODO:  Add any necessary callback functions.
 */
 
@@ -135,21 +143,15 @@ void APP_Initialize ( void )
 
 void APP_Tasks ( void )
 {
-
+    static S_pwmSettings pwmSettings; 
     /* Check the application's current state. */
     switch ( appData.state )
     {
         /* Application's initial state. */
         case APP_STATE_INIT:
         {
-            bool appInitialized = true;
-       
-        
-            if (appInitialized)
-            {
-            
-                appData.state = APP_STATE_WAIT;
-            }
+            GPWM_Initialize(&pwmSettings);
+            appData.state = APP_STATE_WAIT;     
             break;
         }
         case APP_STATE_WAIT:
@@ -175,9 +177,9 @@ void APP_Tasks ( void )
     }
 }
 
-void APP_UpdateState (APP_STATES NewState)
+void APP_UpdateState(APP_STATES NewState)
 {
-    
+    appData.state = NewState;
 }
 
 /*******************************************************************************

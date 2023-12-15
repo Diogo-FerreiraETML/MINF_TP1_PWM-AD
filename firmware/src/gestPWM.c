@@ -11,8 +11,7 @@
 //
 /*--------------------------------------------------------*/
 
-
-
+#include "app.h"
 #include "GestPWM.h"
 
 
@@ -21,9 +20,18 @@ void GPWM_Initialize(S_pwmSettings *pData)
 {
    // Init les data 
     
-   // Init état du pont en H
+    // Init état du pont en H
+    BSP_EnableHbrige();
+    // Lancement des timers et OC
+    // Start des OCs
+    DRV_OC0_Start();
+    DRV_OC1_Start();
     
-   // lance les timers et OC
+    // Start des timers
+    DRV_TMR0_Start();
+    DRV_TMR1_Start();
+    DRV_TMR2_Start();
+    DRV_TMR3_Start();
     
 }
 
