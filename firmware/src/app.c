@@ -61,7 +61,7 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 // Section: Global Data Definitions
 // *****************************************************************************
 // *****************************************************************************
-
+S_pwmSettings pwmSettings;
 // *****************************************************************************
 /* Application Data
 
@@ -88,10 +88,31 @@ APP_DATA appData;
 void CallbackTimer1(APP_STATES NewState)
 {
     static int waitInit = 0;
+    BSP_LEDOn(BSP_LED_0);
     if(waitInit == 150)
+    {
+        GPWM_GetSettings(&pwmSettings);
+        GPWM_DispSettings(&pwmSettings);
+        GPWM_ExecPWM(&pwmSettings);
         appData.state = NewState;
+    }
     else
         waitInit++;
+    BSP_LEDOff(BSP_LED_0);
+}
+
+void CallbackTimer4(void)
+{
+    static int waitTimer4 = 0;
+    BSP_LEDOn(BSP_LED_1);
+    if(waitTimer4 < 40)
+        waitTimer4++;
+    else
+    {
+        waitTimer4 = 0;
+        GPWM_ExecPWMSoft(&pwmSettings);
+    }
+    BSP_LEDOff(BSP_LED_1);
 }
 /* TODO:  Add any necessary callback functions.
 */
@@ -143,7 +164,7 @@ void APP_Initialize ( void )
 
 void APP_Tasks ( void )
 {
-    static S_pwmSettings pwmSettings; 
+     
     /* Check the application's current state. */
     switch ( appData.state )
     {

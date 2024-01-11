@@ -1,4 +1,4 @@
-build/default/production/_ext/1360937237/gestPWM.o: ../src/gestPWM.c \
+build/default/debug/_ext/1360937237/gestPWM.o: ../src/gestPWM.c \
  ../src/app.h ../src/system_config/default/system_config.h \
  ../../../../../../bsp/pic32mx_skes/bsp.h \
  ../../../../../../framework/peripheral/ports/plib_ports.h \

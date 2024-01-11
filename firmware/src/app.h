@@ -167,6 +167,7 @@ typedef struct
 void APP_Initialize ( void );
 void APP_UpdateState (APP_STATES NewState);
 void CallbackTimer1(APP_STATES NewState);
+void CallbackTimer4(void);
 
 
 /*******************************************************************************

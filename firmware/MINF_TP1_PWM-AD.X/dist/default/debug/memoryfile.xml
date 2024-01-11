@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?> 
 <project>                                  
-  <executable name="dist/default/production/MINF_TP1_PWM-AD.X.production.elf">                 
+  <executable name="dist/default/debug/MINF_TP1_PWM-AD.X.debug.elf">                 
     <memory name="program">                 
       <units>bytes</units>                 
       <length>531968</length>                 
-      <used>31476</used>                     
-      <free>500492</free>                     
+      <used>31488</used>                     
+      <free>500480</free>                     
     </memory>                              
     <memory name="data">              
       <units>bytes</units>                 
-      <length>131072</length>                 
-      <used>152</used>                     
-      <free>130920</free>                     
+      <length>131584</length>                 
+      <used>1176</used>                     
+      <free>130408</free>                     
     </memory>                              
   </executable>                            
 </project>                                 

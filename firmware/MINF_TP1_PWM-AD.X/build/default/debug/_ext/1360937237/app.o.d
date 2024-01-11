@@ -1,5 +1,5 @@
-build/default/production/_ext/1360937237/gestPWM.o: ../src/gestPWM.c \
- ../src/app.h ../src/system_config/default/system_config.h \
+build/default/debug/_ext/1360937237/app.o: ../src/app.c ../src/app.h \
+ ../src/system_config/default/system_config.h \
  ../../../../../../bsp/pic32mx_skes/bsp.h \
  ../../../../../../framework/peripheral/ports/plib_ports.h \
  ../../../../../../framework/peripheral/ports/processor/ports_processor.h \
@@ -144,9 +144,7 @@ build/default/production/_ext/1360937237/gestPWM.o: ../src/gestPWM.c \
  ../../../../../../framework/driver/tmr/drv_tmr_compatibility.h \
  ../../../../../../framework/system/ports/sys_ports.h \
  ../../../../../../framework/system/ports/sys_ports_definitions.h \
- ../src/app.h ../src/GestPWM.h \
- ../../../../../../bsp/pic32mx_skes/Mc32DriverLcd.h \
- ../../../../../../bsp/pic32mx_skes/Mc32DriverAdc.h
+ ../src/app.h ../src/GestPWM.h
 
 ../src/app.h:
 
@@ -443,7 +441,3 @@ build/default/production/_ext/1360937237/gestPWM.o: ../src/gestPWM.c \
 ../src/app.h:
 
 ../src/GestPWM.h:
-
-../../../../../../bsp/pic32mx_skes/Mc32DriverLcd.h:
-
-../../../../../../bsp/pic32mx_skes/Mc32DriverAdc.h:
