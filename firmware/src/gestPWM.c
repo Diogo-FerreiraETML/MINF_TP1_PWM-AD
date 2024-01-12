@@ -19,6 +19,7 @@
 
 void GPWM_Initialize(S_pwmSettings *pData)
 {
+
    // Init lCD 
     lcd_init();
     lcd_bl_on();
@@ -30,12 +31,17 @@ void GPWM_Initialize(S_pwmSettings *pData)
     printf_lcd("Julien Decrausaz");
     //Init ADC
     BSP_InitADC10();
-    // Init état du pont en H
+
+   // Init les data 
+    
+
+    // Init Ã©tat du pont en H
     BSP_EnableHbrige();
     // Lancement des timers et OC
     // Start des OCs
     DRV_OC0_Start();
     DRV_OC1_Start();
+
     // Start des timers
     DRV_TMR0_Start();
     DRV_TMR1_Start();
@@ -54,10 +60,10 @@ void GPWM_GetSettings(S_pwmSettings *pData)
     static uint16_t TabValADC2[10] = {0}; //AD2
 
     //Compteurs pour boucles
-    static uint8_t i = 0; //variable statique pour conserver la valeur après interruption
+    static uint8_t i = 0; //variable statique pour conserver la valeur aprÃ¨s interruption
     uint8_t j = 0;
     
-    //Variables pour moyennes (initialisées à 0))
+    //Variables pour moyennes (initialisÃ©es Ã  0))
     uint16_t Moyenne1 = 0;
     uint16_t Moyenne2 = 0;
     
@@ -78,12 +84,12 @@ void GPWM_GetSettings(S_pwmSettings *pData)
     {
         i++;
     }
-    else //Si on est tout à droite, on reviens au début
+    else //Si on est tout Ã  droite, on reviens au dÃ©but
     {
         i = 0;
     }
      
-    //Récupération des valeurs du tableau
+    //RÃ©cupÃ©ration des valeurs du tableau
     for(j = 0; j < 10; j++)
     {
         Moyenne1 += TabValADC1[j];
@@ -115,21 +121,21 @@ void GPWM_GetSettings(S_pwmSettings *pData)
 // Affichage des information en exploitant la structure
 void GPWM_DispSettings(S_pwmSettings *pData)
 {
-    // Affichage de la vitesse du moteur (valeur signée)
+    // Affichage de la vitesse du moteur (valeur signÃ©e)
     lcd_gotoxy(1,2);
     printf_lcd("SpeedSetting %3d", pData -> SpeedSetting);
     // Affichage de la vitesse du moteur (valeur absolue)
     lcd_gotoxy(1,3);
     printf_lcd("absSpeed %7d", pData -> absSpeed);
-    // Affichage de l'angle du servomoteur (valeur signée)
+    // Affichage de l'angle du servomoteur (valeur signÃ©e)
     lcd_gotoxy(1,4);
     printf_lcd("Angle %10d", pData -> AngleSetting);
 }
 
-// Execution PWM et gestion moteur à partir des info dans structure
+// Execution PWM et gestion moteur Ã  partir des info dans structure
 void GPWM_ExecPWM(S_pwmSettings *pData)
 {
-    //Variables pour rapports cycliques des OCs (initialisées à 0)
+    //Variables pour rapports cycliques des OCs (initialisÃ©es Ã  0)
     uint32_t OC2_DutyCycle = 0;
     uint32_t OC3_DutyCycle = 0;
     
@@ -161,19 +167,19 @@ void GPWM_ExecPWM(S_pwmSettings *pData)
     
     //Calcul de la vitesse absSpeed en % pour obtention du rapport cyclique
     OC2_DutyCycle = 20 * pData -> absSpeed; //-0.5 = valeur minimum du Servo, nbre de tics
-    //2000 correspond à la valeur utilisée dans le MHC + 1
+    //2000 correspond Ã  la valeur utilisÃ©e dans le MHC + 1
     DRV_OC0_PulseWidthSet(OC2_DutyCycle);
     //Calcul de l'angle absAngle en nombre d'impulsions
     OC3_DutyCycle = (1124 * pData -> AngleSetting)/90 + 1874;
-    //8750 correspond à la valeur utilisée dans le MHC + 1
-    //180 correspond à la plage de l'angle
+    //8750 correspond Ã  la valeur utilisÃ©e dans le MHC + 1
+    //180 correspond Ã  la plage de l'angle
     DRV_OC1_PulseWidthSet(OC3_DutyCycle);
 }
 
 // Execution PWM software
 void GPWM_ExecPWMSoft(S_pwmSettings *pData)
 {
-    //Fonction premettant de génlrer par comptage un PWM de 100 cycles de 35us
+    //Fonction premettant de gÃ©nlrer par comptage un PWM de 100 cycles de 35us
     
     //Variable de comptage (statique car on veut conserver la valeur)
     static uint8_t CounterPWM = 0;
